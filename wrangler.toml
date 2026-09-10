@@ -1,0 +1,6 @@
+name = "portfolio"
+compatibility_date = "2026-09-10"
+
+[site]
+bucket = "./dist"
+entry-point = "workers-site"
