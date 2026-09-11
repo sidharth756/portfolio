@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ExternalLink, ShieldCheck, Search, Zap, Code2, ArrowUpRight, Layers } from 'lucide-react';
+import { ExternalLink, ArrowUpRight, CheckCircle2 } from 'lucide-react';
 import { GithubIcon } from './Icons';
 import ProjectModal from './ProjectModal';
 
@@ -10,145 +10,133 @@ export default function Projects() {
     {
       id: 'credencify',
       title: 'Credencify',
-      subtitle: 'Blockchain-Powered Digital Credential Verification Platform',
-      status: 'Ongoing Project',
-      date: 'Present',
-      impact: '100% Tamper-Proof Digital Certificate Validation on Ethereum Blockchain',
+      subtitle: 'Blockchain-Powered Credential Verification Platform',
+      status: 'Ongoing',
+      date: '2025',
+      impact: '100% Tamper-Proof Digital Certificate Validation',
       tags: ['Java', 'Spring Boot', 'Microservices', 'ReactJS', 'MySQL', 'Ethereum', 'Solidity'],
-      description: 'Developing a decentralized credential infrastructure capable of delivering tamper-proof certificate verification, trusted ownership, and seamless interoperability across multiple organizations.',
+      description: 'Developing a blockchain-powered credential verification platform enabling 100% tamper-proof digital certificate validation through immutable on-chain credential records.',
       highlights: [
-        'Designed microservices backend using Java Spring Boot and MySQL for scalable user & certificate management.',
-        'Integrated Ethereum blockchain smart contracts written in Solidity for immutable on-chain record keeping.',
-        'Created a modern ReactJS web dashboard enabling instant certificate hashing, verification, and QR validation.',
-        'Ensured 100% tamper-proof security eliminating fake degree and certificate fraud for institutions.'
+        'Engineered Java Spring Boot microservices for scalable user and certificate management.',
+        'Integrated Ethereum blockchain smart contracts written in Solidity for immutable verification.',
+        'Built modern ReactJS web dashboard enabling instant certificate hashing and verification.',
+        'Created a decentralized credential infrastructure supporting secure cross-organization validation.'
       ],
-      githubUrl: 'https://github.com/sidharth756',
-      badgeColor: 'border-purple-500/40 text-purple-300 bg-purple-500/10'
+      githubUrl: 'https://github.com/sidharth756'
     },
     {
       id: 'resource-hub',
       title: 'Resource Hub',
-      subtitle: 'Centralized Academic & Technical Material Search Engine',
+      subtitle: 'Centralized Academic & Technical Resource Platform',
       status: 'Completed',
       date: 'July 2025',
-      impact: '45% Faster Resource Discovery Speed for Students & Developers',
+      impact: '45% Improvement in Resource Discovery Speed',
       tags: ['HTML', 'CSS', 'JavaScript', 'NodeJS', 'MySQL'],
-      description: 'Designed and developed a centralized web platform to organize and access academic and technical learning resources with intelligent indexing.',
+      description: 'Designed and developed a centralized web platform to organize and access academic and technical resources.',
       highlights: [
-        'Implemented an advanced search & filtering algorithm improving resource discovery speed by 45%.',
-        'Structured MySQL database schema with optimized indexing for multi-tag document retrieval.',
-        'Built full REST API endpoints with Node.js & Express for resource uploading and categorize management.',
-        'Developed a clean, accessible frontend interface with responsive CSS grid layout.'
+        'Implemented an advanced search functionality that improved resource discovery speed by 45%.',
+        'Optimized MySQL database schema for fast document categorization and retrieval.',
+        'Built full RESTful API endpoints with Node.js and Express.',
+        'Designed a responsive web interface for seamless mobile and desktop browsing.'
       ],
-      githubUrl: 'https://github.com/sidharth756',
-      badgeColor: 'border-cyan-500/40 text-cyan-300 bg-cyan-500/10'
+      githubUrl: 'https://github.com/sidharth756'
     },
     {
       id: 'sdc-quiz-app',
-      title: 'SDC Technical Quiz Web App',
-      subtitle: 'Interactive Competition Platform for Software Development Club',
-      status: 'Production Live',
+      title: 'SDC Quiz Web Application',
+      subtitle: 'Interactive Competition & Workshop Platform',
+      status: 'In Production',
       date: 'Oct 2024 – Present',
-      impact: 'Deployed for College-wide Technical Events & Workshops at KCE',
-      tags: ['JavaScript', 'NodeJS', 'HTML5/CSS3', 'MySQL'],
-      description: 'Engineered a specialized technical quiz application to facilitate college events, competitive coding rounds, and interactive student workshops for SDC.',
+      impact: 'Deployed for College-wide Technical Competitions at KCE',
+      tags: ['JavaScript', 'NodeJS', 'HTML5', 'CSS3', 'MySQL'],
+      description: 'Built a custom technical quiz web application to support Software Development Club activities, used for conducting technical quizzes during events and workshops.',
       highlights: [
-        'Built dynamic question evaluation engine with real-time score tracking.',
-        'Handled multi-user concurrent quiz sessions during college technical symposiums.',
-        'Collaborated with peers to integrate customizable question sets and leaderboard views.'
+        'Engineered dynamic question evaluation engine with instant score calculations.',
+        'Handled multi-user concurrent sessions during college symposiums.',
+        'Collaborated with peer developers to build admin management tools.'
       ],
-      githubUrl: 'https://github.com/sidharth756',
-      badgeColor: 'border-emerald-500/40 text-emerald-300 bg-emerald-500/10'
+      githubUrl: 'https://github.com/sidharth756'
     }
   ];
 
   return (
-    <section id="projects" className="py-24 relative bg-slate-950/70 border-b border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="projects" className="py-20 relative bg-[#16191E] border-b border-[#262A32]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Title */}
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-xs font-mono text-cyan-400">
-            <Code2 className="w-3.5 h-3.5" />
-            <span>FEATURED WORK</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Featured <span className="gradient-text">Software Projects</span>
+        {/* Section Header */}
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold text-white tracking-tight">
+            Featured Projects
           </h2>
-          <p className="text-slate-400 text-base">
-            Real-world systems engineered with Java Spring Boot, Microservices, Blockchain, React, and Node.js.
+          <p className="text-sm text-slate-400 mt-1">
+            Selected software development work across full-stack engineering, microservices, and blockchain.
           </p>
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Projects Cards Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {projects.map((project) => (
             <div
               key={project.id}
-              className="glass-card rounded-3xl border border-slate-800 p-6 flex flex-col justify-between hover:border-cyan-500/40 transition-all duration-300 group hover:-translate-y-1"
+              className="pro-card p-6 flex flex-col justify-between space-y-4 hover:border-slate-600 transition-all"
             >
-              <div>
-                {/* Header Status & Date */}
-                <div className="flex items-center justify-between gap-2 mb-4">
-                  <span className={`text-xs font-mono px-3 py-1 rounded-full border ${project.badgeColor}`}>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-xs font-mono text-sky-400 bg-[#20242C] px-2.5 py-1 rounded border border-[#2D333F]">
                     {project.status}
                   </span>
-                  <span className="text-xs font-mono text-slate-400">{project.date}</span>
+                  <span className="text-xs text-slate-400 font-mono">{project.date}</span>
                 </div>
 
-                {/* Title */}
-                <h3 className="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors flex items-center justify-between gap-2">
+                <h3 className="text-xl font-bold text-white flex items-center justify-between">
                   <span>{project.title}</span>
-                  <ArrowUpRight className="w-5 h-5 text-slate-500 group-hover:text-cyan-400 transition-colors" />
+                  <ArrowUpRight className="w-4 h-4 text-slate-400" />
                 </h3>
-                <p className="text-xs font-semibold text-cyan-400/90 mt-1 mb-3">
+                <p className="text-xs font-semibold text-slate-300">
                   {project.subtitle}
                 </p>
 
-                {/* Description */}
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed line-clamp-3 mb-4">
+                <p className="text-xs text-slate-400 leading-relaxed line-clamp-3">
                   {project.description}
                 </p>
 
-                {/* Impact Highlight */}
-                <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800/80 mb-5 flex items-center gap-2 text-xs font-mono text-emerald-400">
-                  <Zap className="w-4 h-4 shrink-0 text-emerald-400" />
-                  <span className="truncate">{project.impact}</span>
+                <div className="p-2.5 rounded bg-[#121418] border border-[#272B35] text-xs font-mono text-emerald-400">
+                  ⚡ {project.impact}
                 </div>
               </div>
 
-              {/* Tags & Action Buttons */}
-              <div className="space-y-4 pt-4 border-t border-slate-800/80">
+              {/* Tags & Action Links */}
+              <div className="pt-4 border-t border-[#282D37] space-y-3">
                 <div className="flex flex-wrap gap-1.5">
                   {project.tags.slice(0, 4).map((tag, idx) => (
                     <span
                       key={idx}
-                      className="px-2.5 py-1 rounded-md text-[11px] font-mono bg-slate-900 text-slate-400 border border-slate-800"
+                      className="px-2 py-1 rounded text-[11px] font-mono bg-[#20242C] text-slate-300 border border-[#2D333F]"
                     >
                       {tag}
                     </span>
                   ))}
                   {project.tags.length > 4 && (
-                    <span className="px-2 py-1 rounded-md text-[11px] font-mono text-slate-400 bg-slate-900 border border-slate-800">
-                      +{project.tags.length - 4} more
+                    <span className="px-2 py-1 rounded text-[11px] font-mono text-slate-400 bg-[#20242C] border border-[#2D333F]">
+                      +{project.tags.length - 4}
                     </span>
                   )}
                 </div>
 
-                <div className="flex items-center justify-between gap-3 pt-1">
+                <div className="flex items-center justify-between pt-1 text-xs">
                   <button
                     onClick={() => setSelectedProject(project)}
-                    className="text-xs font-bold text-cyan-400 hover:text-cyan-300 underline underline-offset-4 flex items-center gap-1"
+                    className="font-semibold text-sky-400 hover:text-sky-300"
                   >
-                    <span>View Architecture Details</span>
+                    Details & Architecture →
                   </button>
 
                   <a
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-xl glass-card text-slate-400 hover:text-white hover:border-cyan-400/50 transition-colors"
-                    title="View GitHub Source"
+                    className="p-1.5 rounded bg-[#20242C] text-slate-300 hover:text-white border border-[#2F3542]"
+                    title="GitHub Repository"
                   >
                     <GithubIcon className="w-4 h-4" />
                   </a>
@@ -159,7 +147,7 @@ export default function Projects() {
           ))}
         </div>
 
-        {/* Modal Popup */}
+        {/* Project Modal */}
         {selectedProject && (
           <ProjectModal
             project={selectedProject}
