@@ -1,18 +1,32 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import About from './components/About';
+import Skills from './components/Skills';
+import Projects from './components/Projects';
+import Leadership from './components/Leadership';
+import Certifications from './components/Certifications';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
+import ResumeModal from './components/ResumeModal';
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   return (
-    <>
-    <h1>Currently under development 🚧!</h1>
-    <p> -sidharth</p>
-    </>
-  )
+    <div className="min-h-screen bg-[#0B0F17] text-slate-100 selection:bg-cyan-500/20 selection:text-cyan-300">
+      <Navbar onOpenResume={() => setIsResumeOpen(true)} />
+      <main>
+        <Hero onOpenResume={() => setIsResumeOpen(true)} />
+        <About />
+        <Skills />
+        <Projects />
+        <Leadership />
+        <Certifications />
+        <Contact />
+      </main>
+      <Footer />
+      <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
+    </div>
+  );
 }
-
-export default App
