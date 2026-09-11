@@ -1,6 +1,22 @@
-# React + Vite
+# React + Vite + Cloudflare Pages
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is configured to build for Cloudflare Pages.
+
+## Cloudflare Pages deployment
+
+- Build command: `npm run build`
+- Build output directory: `dist`
+- SPA fallback: `public/_redirects` rewrites all routes to `index.html`
+
+## Local development
+
+- `npm install`
+- `npm run dev`
+
+## Preview the Pages output locally
+
+- `npm run build`
+- Deploy or preview the generated `dist` directory with Wrangler if needed
 
 Currently, two official plugins are available:
 
