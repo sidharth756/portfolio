@@ -1,161 +1,324 @@
-import React, { useState } from 'react';
-import { ExternalLink, ArrowUpRight, CheckCircle2 } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { X, ExternalLink, ChevronLeft, ChevronRight, ImageIcon, ArrowUpRight } from 'lucide-react';
 import { GithubIcon } from './Icons';
-import ProjectModal from './ProjectModal';
 
-export default function Projects() {
-  const [selectedProject, setSelectedProject] = useState(null);
+const PROJECTS = [
+  {
+    id: 'credencify',
+    name: 'Credencify',
+    tagline: 'Blockchain Credential Verification',
+    shortDesc: 'Tamper-proof digital certificate verification on Ethereum blockchain.',
+    description:
+      'A decentralized credential verification infrastructure that eliminates academic and professional certificate forgery using on-chain cryptographic proofs. Built with Java Spring Boot microservices, Solidity smart contracts, and a React dashboard.',
+    highlights: [
+      'Java Spring Boot REST microservices for auth, certificate issuance & cryptographic hashing',
+      'Solidity smart contracts for immutable on-chain Ethereum record keeping',
+      'React dashboard for instant QR-based certificate verification',
+      'Eliminates certificate forgery for institutions using decentralized cryptographic proofs',
+      'Microservices architecture with independent deployable services',
+    ],
+    tags: ['Java', 'Spring Boot', 'React', 'Solidity', 'Ethereum', 'MySQL', 'Microservices'],
+    status: 'In Progress',
+    statusCls: 'badge-blue',
+    year: '2025',
+    githubUrl: 'https://github.com/sidharth756',
+    // image: '/images/credencify.png',  ← drop your image here
+    accentColor: '#2563EB',
+    accentBg: 'linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%)',
+  },
+  {
+    id: 'resource-hub',
+    name: 'Resource Hub',
+    tagline: 'Academic Resource Search Engine',
+    shortDesc: 'Centralized platform with 45% faster resource discovery via MySQL indexing.',
+    description:
+      'A centralized web platform to organize and access academic and technical learning resources. Features optimized composite MySQL indexing for sub-50ms multi-tag retrieval, full RESTful API, and a clean responsive interface.',
+    highlights: [
+      'MySQL composite indexing achieving sub-50ms multi-tag document retrieval',
+      'Node.js & Express REST API for upload, categorization and management',
+      'Advanced search with tag-based filtering across thousands of resources',
+      '45% improvement in resource discovery speed',
+      'Responsive design for desktop and mobile users',
+    ],
+    tags: ['Node.js', 'Express', 'MySQL', 'JavaScript', 'HTML5', 'CSS3'],
+    status: 'Completed',
+    statusCls: 'badge-green',
+    year: 'Jul 2025',
+    githubUrl: 'https://github.com/sidharth756',
+    // image: '/images/resource-hub.png',
+    accentColor: '#059669',
+    accentBg: 'linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%)',
+  },
+  {
+    id: 'sdc-quiz',
+    name: 'SDC Quiz Platform',
+    tagline: 'College Technical Quiz Web App',
+    shortDesc: 'Production quiz app used across college events and SDC workshops.',
+    description:
+      'An interactive technical quiz web application built for the Software Development Club at Karpagam College of Engineering. Deployed and used in college symposiums, workshops, and technical competitions.',
+    highlights: [
+      'Dynamic question evaluation engine with real-time score tracking',
+      'Concurrent multi-user session handling during college events',
+      'Customizable quiz creation tools for instructors',
+      'Deployed and active across multiple college technical symposiums',
+      'Collaborative development with peer developers',
+    ],
+    tags: ['JavaScript', 'Node.js', 'MySQL', 'HTML5', 'CSS3'],
+    status: 'In Production',
+    statusCls: 'badge-green',
+    year: 'Oct 2024 – Present',
+    githubUrl: 'https://github.com/sidharth756',
+    // image: '/images/sdc-quiz.png',
+    accentColor: '#7C3AED',
+    accentBg: 'linear-gradient(135deg, #FAF5FF 0%, #EDE9FE 100%)',
+  },
+];
 
-  const projects = [
-    {
-      id: 'credencify',
-      title: 'Credencify',
-      subtitle: 'Blockchain-Powered Credential Verification Platform',
-      status: 'Ongoing',
-      date: '2025',
-      impact: '100% Tamper-Proof Digital Certificate Validation',
-      tags: ['Java', 'Spring Boot', 'Microservices', 'ReactJS', 'MySQL', 'Ethereum', 'Solidity'],
-      description: 'Developing a blockchain-powered credential verification platform enabling 100% tamper-proof digital certificate validation through immutable on-chain credential records.',
-      highlights: [
-        'Engineered Java Spring Boot microservices for scalable user and certificate management.',
-        'Integrated Ethereum blockchain smart contracts written in Solidity for immutable verification.',
-        'Built modern ReactJS web dashboard enabling instant certificate hashing and verification.',
-        'Created a decentralized credential infrastructure supporting secure cross-organization validation.'
-      ],
-      githubUrl: 'https://github.com/sidharth756'
-    },
-    {
-      id: 'resource-hub',
-      title: 'Resource Hub',
-      subtitle: 'Centralized Academic & Technical Resource Platform',
-      status: 'Completed',
-      date: 'July 2025',
-      impact: '45% Improvement in Resource Discovery Speed',
-      tags: ['HTML', 'CSS', 'JavaScript', 'NodeJS', 'MySQL'],
-      description: 'Designed and developed a centralized web platform to organize and access academic and technical resources.',
-      highlights: [
-        'Implemented an advanced search functionality that improved resource discovery speed by 45%.',
-        'Optimized MySQL database schema for fast document categorization and retrieval.',
-        'Built full RESTful API endpoints with Node.js and Express.',
-        'Designed a responsive web interface for seamless mobile and desktop browsing.'
-      ],
-      githubUrl: 'https://github.com/sidharth756'
-    },
-    {
-      id: 'sdc-quiz-app',
-      title: 'SDC Quiz Web Application',
-      subtitle: 'Interactive Competition & Workshop Platform',
-      status: 'In Production',
-      date: 'Oct 2024 – Present',
-      impact: 'Deployed for College-wide Technical Competitions at KCE',
-      tags: ['JavaScript', 'NodeJS', 'HTML5', 'CSS3', 'MySQL'],
-      description: 'Built a custom technical quiz web application to support Software Development Club activities, used for conducting technical quizzes during events and workshops.',
-      highlights: [
-        'Engineered dynamic question evaluation engine with instant score calculations.',
-        'Handled multi-user concurrent sessions during college symposiums.',
-        'Collaborated with peer developers to build admin management tools.'
-      ],
-      githubUrl: 'https://github.com/sidharth756'
-    }
-  ];
+/* ── Project Detail Modal ── */
+function ProjectModal({ project, onClose }) {
+  useEffect(() => {
+    const h = e => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', h);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', h);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
 
   return (
-    <section id="projects" className="py-20 relative bg-[#16191E] border-b border-[#262A32]">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold text-white tracking-tight">
-            Featured Projects
-          </h2>
-          <p className="text-sm text-slate-400 mt-1">
-            Selected software development work across full-stack engineering, microservices, and blockchain.
+    <div className="modal-overlay" onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
+      <div className="modal-box">
+        {/* Image strip */}
+        <div style={{
+          height: 220,
+          background: project.accentBg,
+          borderRadius: 'var(--r-xl) var(--r-xl) 0 0',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          position: 'relative', overflow: 'hidden',
+        }}>
+          {project.image
+            ? <img src={project.image} alt={project.name} style={{ width:'100%', height:'100%', objectFit:'cover' }}/>
+            : (
+              <div style={{ textAlign:'center', opacity:.45 }}>
+                <ImageIcon size={40} color={project.accentColor}/>
+                <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:'.72rem', color: project.accentColor, marginTop:'.4rem' }}>
+                  {project.name}
+                </div>
+              </div>
+            )
+          }
+          {/* Close button */}
+          <button onClick={onClose} style={{
+            position:'absolute', top:12, right:12,
+            width:32, height:32, borderRadius:'50%',
+            background:'rgba(0,0,0,.25)', border:'none',
+            display:'flex', alignItems:'center', justifyContent:'center',
+            cursor:'pointer', color:'#fff',
+            transition:'background .15s',
+          }}
+          onMouseEnter={e => e.currentTarget.style.background = 'rgba(0,0,0,.45)'}
+          onMouseLeave={e => e.currentTarget.style.background = 'rgba(0,0,0,.25)'}
+          >
+            <X size={16}/>
+          </button>
+        </div>
+
+        {/* Body */}
+        <div style={{ padding:'1.75rem' }}>
+          {/* Status + date */}
+          <div style={{ display:'flex', alignItems:'center', gap:'.5rem', marginBottom:'.875rem', flexWrap:'wrap' }}>
+            <span className={`badge ${project.statusCls}`}>{project.status}</span>
+            <span style={{ fontFamily:'JetBrains Mono,monospace', fontSize:'.72rem', color:'var(--ink-4)' }}>{project.year}</span>
+          </div>
+
+          <h3 style={{ fontFamily:'Manrope,sans-serif', fontWeight:800, fontSize:'1.4rem', color:'var(--ink)', marginBottom:'.3rem', letterSpacing:'-0.02em' }}>
+            {project.name}
+          </h3>
+          <p style={{ fontSize:'.875rem', color:project.accentColor, fontWeight:600, marginBottom:'1.1rem' }}>
+            {project.tagline}
+          </p>
+
+          <p style={{ fontSize:'.9375rem', color:'var(--ink-3)', lineHeight:1.78, marginBottom:'1.5rem' }}>
+            {project.description}
+          </p>
+
+          {/* Highlights */}
+          <div style={{ marginBottom:'1.5rem' }}>
+            <p style={{ fontFamily:'JetBrains Mono,monospace', fontSize:'.68rem', fontWeight:500, color:'var(--ink-4)', textTransform:'uppercase', letterSpacing:'.1em', marginBottom:'.75rem' }}>
+              Key Features
+            </p>
+            <ul style={{ listStyle:'none', display:'flex', flexDirection:'column', gap:'.55rem' }}>
+              {project.highlights.map((h, i) => (
+                <li key={i} style={{ display:'flex', alignItems:'flex-start', gap:'.625rem', fontSize:'.9rem', color:'var(--ink-2)', lineHeight:1.65 }}>
+                  <span style={{ width:6, height:6, borderRadius:'50%', background:project.accentColor, flexShrink:0, marginTop:'.55em' }}/>
+                  {h}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Tags */}
+          <div style={{ display:'flex', flexWrap:'wrap', gap:'.4rem', marginBottom:'1.5rem', paddingTop:'1.25rem', borderTop:'1px solid var(--border)' }}>
+            {project.tags.map(t => <span key={t} className="pill">{t}</span>)}
+          </div>
+
+          {/* CTA */}
+          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer"
+            className="btn btn-primary" style={{ width:'100%', justifyContent:'center' }}>
+            <GithubIcon style={{ width:16, height:16 }}/>
+            View on GitHub
+            <ExternalLink size={13}/>
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Single Project Card ── */
+function ProjectCard({ project, onLearnMore }) {
+  return (
+    <div className="proj-card">
+      {/* Image */}
+      <div className="proj-img-wrap" style={{ background: project.accentBg }}>
+        {project.image
+          ? <img src={project.image} alt={project.name}/>
+          : (
+            <div className="proj-img-placeholder">
+              <ImageIcon size={32} color={project.accentColor} style={{ opacity:.5 }}/>
+              <span style={{ color: project.accentColor, opacity:.4 }}>{project.name}</span>
+            </div>
+          )
+        }
+        {/* Status badge overlay */}
+        <div style={{ position:'absolute', top:12, left:12 }}>
+          <span className={`badge ${project.statusCls}`}>{project.status}</span>
+        </div>
+      </div>
+
+      {/* Body */}
+      <div className="proj-body">
+        <div>
+          <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:'.68rem', color:'var(--ink-4)', marginBottom:'.3rem' }}>
+            {project.year}
+          </div>
+          <h3 style={{ fontFamily:'Manrope,sans-serif', fontWeight:800, fontSize:'1.1rem', color:'var(--ink)', letterSpacing:'-0.02em', marginBottom:'.3rem' }}>
+            {project.name}
+          </h3>
+          <p style={{ fontSize:'.8375rem', color:'var(--ink-3)', lineHeight:1.65 }}>
+            {project.shortDesc}
           </p>
         </div>
 
-        {/* Projects Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {projects.map((project) => (
-            <div
-              key={project.id}
-              className="pro-card p-6 flex flex-col justify-between space-y-4 hover:border-slate-600 transition-all"
-            >
-              <div className="space-y-3">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-mono text-sky-400 bg-[#20242C] px-2.5 py-1 rounded border border-[#2D333F]">
-                    {project.status}
-                  </span>
-                  <span className="text-xs text-slate-400 font-mono">{project.date}</span>
-                </div>
-
-                <h3 className="text-xl font-bold text-white flex items-center justify-between">
-                  <span>{project.title}</span>
-                  <ArrowUpRight className="w-4 h-4 text-slate-400" />
-                </h3>
-                <p className="text-xs font-semibold text-slate-300">
-                  {project.subtitle}
-                </p>
-
-                <p className="text-xs text-slate-400 leading-relaxed line-clamp-3">
-                  {project.description}
-                </p>
-
-                <div className="p-2.5 rounded bg-[#121418] border border-[#272B35] text-xs font-mono text-emerald-400">
-                  ⚡ {project.impact}
-                </div>
-              </div>
-
-              {/* Tags & Action Links */}
-              <div className="pt-4 border-t border-[#282D37] space-y-3">
-                <div className="flex flex-wrap gap-1.5">
-                  {project.tags.slice(0, 4).map((tag, idx) => (
-                    <span
-                      key={idx}
-                      className="px-2 py-1 rounded text-[11px] font-mono bg-[#20242C] text-slate-300 border border-[#2D333F]"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                  {project.tags.length > 4 && (
-                    <span className="px-2 py-1 rounded text-[11px] font-mono text-slate-400 bg-[#20242C] border border-[#2D333F]">
-                      +{project.tags.length - 4}
-                    </span>
-                  )}
-                </div>
-
-                <div className="flex items-center justify-between pt-1 text-xs">
-                  <button
-                    onClick={() => setSelectedProject(project)}
-                    className="font-semibold text-sky-400 hover:text-sky-300"
-                  >
-                    Details & Architecture →
-                  </button>
-
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-1.5 rounded bg-[#20242C] text-slate-300 hover:text-white border border-[#2F3542]"
-                    title="GitHub Repository"
-                  >
-                    <GithubIcon className="w-4 h-4" />
-                  </a>
-                </div>
-              </div>
-
-            </div>
-          ))}
+        {/* Tags */}
+        <div style={{ display:'flex', flexWrap:'wrap', gap:'.35rem' }}>
+          {project.tags.slice(0, 4).map(t => <span key={t} className="pill" style={{ fontSize:'.7rem' }}>{t}</span>)}
+          {project.tags.length > 4 && (
+            <span className="pill" style={{ fontSize:'.7rem' }}>+{project.tags.length - 4}</span>
+          )}
         </div>
 
-        {/* Project Modal */}
-        {selectedProject && (
-          <ProjectModal
-            project={selectedProject}
-            onClose={() => setSelectedProject(null)}
-          />
-        )}
-
+        {/* Footer */}
+        <div style={{ display:'flex', gap:'.5rem', marginTop:'auto', paddingTop:'.75rem', borderTop:'1px solid var(--border)' }}>
+          <button
+            onClick={() => onLearnMore(project)}
+            className="btn btn-primary"
+            style={{ flex:1, justifyContent:'center', fontSize:'.825rem' }}
+          >
+            Learn More <ArrowUpRight size={13}/>
+          </button>
+          <a
+            href={project.githubUrl} target="_blank" rel="noopener noreferrer"
+            className="btn btn-outline"
+            style={{ padding:'.55rem .75rem' }}
+            title="GitHub"
+          >
+            <GithubIcon style={{ width:16, height:16 }}/>
+          </a>
+        </div>
       </div>
+    </div>
+  );
+}
+
+/* ── Projects Section ── */
+export default function Projects() {
+  const [selected, setSelected] = useState(null);
+  const trackRef = useRef(null);
+
+  const scroll = (dir) => {
+    if (!trackRef.current) return;
+    trackRef.current.scrollBy({ left: dir * 380, behavior: 'smooth' });
+  };
+
+  // drag-to-scroll
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    let isDown = false, startX = 0, scrollLeft = 0;
+    const md = e => { isDown = true; startX = e.pageX - el.offsetLeft; scrollLeft = el.scrollLeft; };
+    const mu = () => { isDown = false; };
+    const mm = e => { if (!isDown) return; e.preventDefault(); const x = e.pageX - el.offsetLeft; el.scrollLeft = scrollLeft - (x - startX) * 1.2; };
+    el.addEventListener('mousedown', md);
+    window.addEventListener('mouseup', mu);
+    el.addEventListener('mousemove', mm);
+    return () => { el.removeEventListener('mousedown', md); window.removeEventListener('mouseup', mu); el.removeEventListener('mousemove', mm); };
+  }, []);
+
+  return (
+    <section id="projects" className="section">
+      <div className="wrap">
+        {/* Header row */}
+        <div style={{ display:'flex', alignItems:'flex-end', justifyContent:'space-between', gap:'1rem', flexWrap:'wrap', marginBottom:'2.5rem' }}>
+          <div>
+            <span className="eyebrow">Work</span>
+            <h2 className="section-title">Featured Projects</h2>
+            <p style={{ marginTop:'.5rem', fontSize:'.9375rem', color:'var(--ink-3)', maxWidth:480 }}>
+              Systems I've designed and shipped — from blockchain infrastructure to production web platforms.
+            </p>
+          </div>
+
+          {/* Arrow buttons */}
+          <div style={{ display:'flex', gap:'.5rem', flexShrink:0 }}>
+            <button onClick={() => scroll(-1)} className="btn btn-outline" style={{ padding:'.55rem .75rem' }} aria-label="Prev">
+              <ChevronLeft size={18}/>
+            </button>
+            <button onClick={() => scroll(1)} className="btn btn-outline" style={{ padding:'.55rem .75rem' }} aria-label="Next">
+              <ChevronRight size={18}/>
+            </button>
+          </div>
+        </div>
+
+        {/* ── SLIDER ── */}
+        <div ref={trackRef} className="slider-track">
+          {PROJECTS.map(p => (
+            <ProjectCard key={p.id} project={p} onLearnMore={setSelected}/>
+          ))}
+          {/* "More coming soon" placeholder */}
+          <div style={{
+            flex:'0 0 280px', borderRadius:'var(--r-lg)',
+            border:'2px dashed var(--border-2)',
+            display:'flex', flexDirection:'column',
+            alignItems:'center', justifyContent:'center',
+            gap:'.75rem', padding:'2rem', textAlign:'center',
+            color:'var(--ink-4)',
+          }}>
+            <div style={{ fontSize:'2rem' }}>+</div>
+            <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:'.75rem', lineHeight:1.6 }}>
+              More projects<br/>coming soon
+            </div>
+          </div>
+        </div>
+
+        {/* Drop-image hint */}
+        <p style={{ marginTop:'1.25rem', fontFamily:'JetBrains Mono,monospace', fontSize:'.7rem', color:'var(--ink-4)', letterSpacing:'.05em' }}>
+          💡 Drop your project screenshots in <code>/public/images/</code> and update the <code>image</code> field in Projects.jsx
+        </p>
+      </div>
+
+      {/* Modal */}
+      {selected && <ProjectModal project={selected} onClose={() => setSelected(null)}/>}
     </section>
   );
 }

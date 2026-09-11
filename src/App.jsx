@@ -11,22 +11,22 @@ import Footer from './components/Footer';
 import ResumeModal from './components/ResumeModal';
 
 export default function App() {
-  const [isResumeOpen, setIsResumeOpen] = useState(false);
+  const [resumeOpen, setResumeOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#0B0F17] text-slate-100 selection:bg-cyan-500/20 selection:text-cyan-300">
-      <Navbar onOpenResume={() => setIsResumeOpen(true)} />
+    <>
+      <Navbar onOpenResume={() => setResumeOpen(true)} />
       <main>
-        <Hero onOpenResume={() => setIsResumeOpen(true)} />
-        <About />
-        <Skills />
-        <Projects />
-        <Leadership />
-        <Certifications />
-        <Contact />
+        <Hero      onOpenResume={() => setResumeOpen(true)} />
+        <About     />
+        <Skills    />
+        <Projects  />
+        <Leadership/>
+        <Certifications/>
+        <Contact   />
       </main>
       <Footer />
-      <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
-    </div>
+      {resumeOpen && <ResumeModal onClose={() => setResumeOpen(false)} />}
+    </>
   );
 }

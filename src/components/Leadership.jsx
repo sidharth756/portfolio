@@ -1,53 +1,82 @@
 import React from 'react';
-import { Users, CheckCircle2, Calendar } from 'lucide-react';
+import { Users, CheckCircle2 } from 'lucide-react';
+
+const BULLETS = [
+  { bold: 'Software Development:', text: 'Built custom tools streamlining college administrative operations and student management systems.' },
+  { bold: 'Event Management:', text: 'Organized coding workshops, competitive hackathons, and technical quizzes for 200+ students across multiple semesters.' },
+  { bold: 'Quiz Platform:', text: 'Led development of an interactive quiz web application actively deployed across college symposiums and technical workshops.' },
+];
 
 export default function Leadership() {
   return (
-    <section id="leadership" className="py-20 bg-[#121418]">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="mb-10">
-          <h2 className="text-2xl font-bold text-white tracking-tight">
-            Leadership & Extracurricular Activities
-          </h2>
-          <p className="text-sm text-slate-400 mt-1">
-            Roles in tech student organizations and community software projects.
+    <section id="experience" className="section">
+      <div className="wrap">
+        {/* Header */}
+        <div style={{ marginBottom:'2.75rem' }}>
+          <span className="eyebrow">Leadership</span>
+          <h2 className="section-title">Experience</h2>
+          <p style={{ marginTop:'.5rem', fontSize:'.9375rem', color:'var(--ink-3)', maxWidth:500 }}>
+            Technical leadership and hands-on engineering at the Software Development Club.
           </p>
         </div>
 
-        {/* Leadership Card */}
-        <div className="pro-card p-6 sm:p-8 space-y-4">
-          <div className="flex flex-wrap items-start justify-between gap-2 border-b border-[#282D37] pb-4">
+        {/* Single experience card */}
+        <div className="card" style={{ padding:'2rem', maxWidth:860 }}>
+          {/* Role header */}
+          <div style={{
+            display:'flex', flexWrap:'wrap', justifyContent:'space-between',
+            alignItems:'flex-start', gap:'1rem',
+            marginBottom:'1.5rem', paddingBottom:'1.5rem', borderBottom:'1px solid var(--border)',
+          }}>
             <div>
-              <span className="inline-block px-2.5 py-1 rounded text-xs font-mono bg-[#20242C] text-sky-400 border border-[#2D333F] mb-2">
-                ASSOCIATE HEAD
-              </span>
-              <h3 className="text-xl font-bold text-white">
-                Software Development Club (SDC) — Karpagam College of Engineering
+              <div style={{ display:'flex', alignItems:'center', gap:'.5rem', marginBottom:'.6rem' }}>
+                <div style={{
+                  width:38, height:38, borderRadius:9,
+                  background:'var(--blue-light)', border:'1px solid #BFDBFE',
+                  display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0,
+                }}>
+                  <Users size={17} color="var(--blue)"/>
+                </div>
+                <span className="badge badge-blue" style={{ fontFamily:'JetBrains Mono,monospace', fontSize:'.68rem', letterSpacing:'.08em' }}>
+                  ASSOCIATE HEAD
+                </span>
+              </div>
+              <h3 style={{ fontFamily:'Manrope,sans-serif', fontWeight:800, fontSize:'1.125rem', color:'var(--ink)', marginBottom:'.3rem', letterSpacing:'-0.02em' }}>
+                Software Development Club (SDC)
               </h3>
+              <p style={{ fontSize:'.875rem', color:'var(--ink-3)' }}>
+                Karpagam College of Engineering — Coimbatore, Tamil Nadu
+              </p>
             </div>
-            <div className="text-xs text-slate-400 font-mono">
-              Oct 2024 – Present
+            <div style={{ textAlign:'right', flexShrink:0 }}>
+              <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:'.75rem', color:'var(--ink-4)', lineHeight:1.5 }}>
+                Oct 2024 – Present
+              </div>
+              <span className="badge badge-green" style={{ marginTop:'.4rem' }}>
+                <span style={{ width:6, height:6, background:'#10B981', borderRadius:'50%' }}/>
+                Active
+              </span>
             </div>
           </div>
 
-          <p className="text-sm text-slate-300 leading-relaxed">
-            Leading collaborative software development initiatives for college operations, mentoring peers on coding projects, and organizing campus-wide technical competitions.
+          {/* Summary */}
+          <p style={{ fontSize:'.9375rem', color:'var(--ink-3)', lineHeight:1.78, marginBottom:'1.375rem' }}>
+            Directing student software development teams for college operations, mentoring peers in full-stack
+            programming, and organizing technical competitions and workshops for the wider developer community.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
-            <div className="p-3 rounded bg-[#181B20] border border-[#282D37] text-xs text-slate-300 flex items-start gap-2.5">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-              <span><strong>College Operation Software:</strong> Developing custom software tools for college operations in collaboration with peer developers.</span>
-            </div>
-            <div className="p-3 rounded bg-[#181B20] border border-[#282D37] text-xs text-slate-300 flex items-start gap-2.5">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-              <span><strong>Quiz Web Application:</strong> Built an interactive online quiz web app used for conducting technical quizzes during events & workshops.</span>
-            </div>
-          </div>
+          {/* Bullets */}
+          <ul style={{ listStyle:'none', display:'flex', flexDirection:'column', gap:'.75rem' }}>
+            {BULLETS.map((b, i) => (
+              <li key={i} style={{ display:'flex', alignItems:'flex-start', gap:'.75rem', fontSize:'.9rem', color:'var(--ink-3)', lineHeight:1.7 }}>
+                <CheckCircle2 size={16} color="#10B981" style={{ flexShrink:0, marginTop:'.2em' }}/>
+                <span>
+                  <strong style={{ color:'var(--ink)', fontWeight:600 }}>{b.bold}</strong>{' '}{b.text}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
-
       </div>
     </section>
   );

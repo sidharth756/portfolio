@@ -1,227 +1,244 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Copy, Check, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Copy, Check, Send, ExternalLink } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, LeetcodeIcon } from './Icons';
 
-export default function Contact() {
-  const [copiedEmail, setCopiedEmail] = useState(false);
-  const [copiedPhone, setCopiedPhone] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
+const SOCIALS = [
+  { Icon: GithubIcon,   label: 'GitHub',   handle: 'sidharth756',   url: 'https://github.com/sidharth756',        color: '#111' },
+  { Icon: LinkedinIcon, label: 'LinkedIn', handle: 'sidharth56',    url: 'https://linkedin.com/in/sidharth56',    color: '#0A66C2' },
+  { Icon: LeetcodeIcon, label: 'LeetCode', handle: 'sidharth9944',  url: 'https://leetcode.com/u/sidharth9944/', color: '#FFA116' },
+];
 
-  const handleCopy = (text, type) => {
-    navigator.clipboard.writeText(text);
-    if (type === 'email') {
-      setCopiedEmail(true);
-      setTimeout(() => setCopiedEmail(false), 2000);
-    } else {
-      setCopiedPhone(true);
-      setTimeout(() => setCopiedPhone(false), 2000);
-    }
-  };
+function CopyBtn({ text }) {
+  const [copied, setCopied] = useState(false);
+  return (
+    <button onClick={() => { navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 2000); }}
+      style={{
+        display:'flex', alignItems:'center', gap:3,
+        background:'var(--bg-muted)', border:'1px solid var(--border)',
+        borderRadius:'var(--r-xs)', padding:'.2rem .55rem',
+        cursor:'pointer', fontFamily:'JetBrains Mono,monospace', fontSize:'.7rem',
+        color: copied ? '#059669' : 'var(--ink-4)', transition:'color .15s',
+      }}
+    >
+      {copied ? <Check size={11}/> : <Copy size={11}/>}
+      {copied ? 'Copied!' : 'Copy'}
+    </button>
+  );
+}
+
+export default function Contact() {
+  const [form, setForm] = useState({ name:'', email:'', subject:'', message:'' });
+  const [status, setStatus] = useState(null); // null | 'sending' | 'sent' | 'error'
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
-
-    setLoading(true);
+    if (!form.name || !form.email || !form.message) return;
+    setStatus('sending');
+    // Simulate send (replace with real API call / FormSubmit / EmailJS etc.)
     setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      setTimeout(() => setSubmitted(false), 5000);
-    }, 600);
+      setStatus('sent');
+      setForm({ name:'', email:'', subject:'', message:'' });
+      setTimeout(() => setStatus(null), 6000);
+    }, 900);
   };
 
   return (
-    <section id="contact" className="py-20 bg-[#121418] border-t border-[#262A32]">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold text-white tracking-tight">
-            Contact
-          </h2>
-          <p className="text-sm text-slate-400 mt-1">
-            Get in touch for software engineering inquiries, internships, or collaborations.
+    <section id="contact" className="section">
+      <div className="wrap">
+        {/* Header */}
+        <div style={{ marginBottom:'3rem' }}>
+          <span className="eyebrow">Get in Touch</span>
+          <h2 className="section-title">Contact Me</h2>
+          <p style={{ marginTop:'.5rem', fontSize:'.9375rem', color:'var(--ink-3)', maxWidth:500 }}>
+            Open to internships, full-time roles, and open-source collaborations. I reply within 24 hours.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          
-          {/* Left Column: Direct Info */}
-          <div className="lg:col-span-5 space-y-4">
-            
-            {/* Email Box */}
-            <div className="pro-card p-5 space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-mono text-slate-400 uppercase">Email</span>
-                <button
-                  onClick={() => handleCopy('sidharthrk756@gmail.com', 'email')}
-                  className="px-2.5 py-1 rounded bg-[#20242C] text-xs text-slate-300 hover:text-white border border-[#2F3542] flex items-center gap-1"
-                >
-                  {copiedEmail ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-slate-400" />}
-                  <span>{copiedEmail ? 'Copied' : 'Copy'}</span>
-                </button>
+        {/* Two-column: form + info */}
+        <div style={{
+          display:'grid',
+          gridTemplateColumns:'1fr 420px',
+          gap:'2.5rem',
+          alignItems:'start',
+        }}>
+
+          {/* ── LEFT: Form ── */}
+          <div className="card" style={{ padding:'2rem' }}>
+            <h3 style={{ fontFamily:'Manrope,sans-serif', fontWeight:700, fontSize:'1.125rem', color:'var(--ink)', marginBottom:'1.5rem' }}>
+              Send a Message
+            </h3>
+
+            {status === 'sent' && (
+              <div style={{
+                display:'flex', alignItems:'center', gap:'.6rem',
+                padding:'.875rem 1rem', borderRadius:'var(--r-sm)',
+                background:'#ECFDF5', border:'1px solid #A7F3D0',
+                color:'#059669', fontSize:'.9rem', fontWeight:500,
+                marginBottom:'1.25rem',
+              }}>
+                <Check size={16}/> Message sent! I'll get back to you soon.
               </div>
-              <a href="mailto:sidharthrk756@gmail.com" className="text-base font-bold text-white hover:text-sky-400">
-                sidharthrk756@gmail.com
-              </a>
-            </div>
+            )}
 
-            {/* Phone Box */}
-            <div className="pro-card p-5 space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-mono text-slate-400 uppercase">Phone / WhatsApp</span>
-                <button
-                  onClick={() => handleCopy('+91-9342755756', 'phone')}
-                  className="px-2.5 py-1 rounded bg-[#20242C] text-xs text-slate-300 hover:text-white border border-[#2F3542] flex items-center gap-1"
-                >
-                  {copiedPhone ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-slate-400" />}
-                  <span>{copiedPhone ? 'Copied' : 'Copy'}</span>
-                </button>
-              </div>
-              <a href="tel:+919342755756" className="text-base font-bold text-white hover:text-sky-400">
-                +91-9342755756
-              </a>
-            </div>
-
-            {/* Location Box */}
-            <div className="pro-card p-5 space-y-1">
-              <span className="text-xs font-mono text-slate-400 uppercase">Location</span>
-              <p className="text-sm font-semibold text-white">Sathyamangalam / Coimbatore, Tamil Nadu, India</p>
-            </div>
-
-            {/* Social Links */}
-            <div className="pro-card p-5 space-y-3">
-              <span className="text-xs font-mono text-slate-400 uppercase">Online Profiles</span>
-              <div className="space-y-2 text-xs">
-                <a
-                  href="https://github.com/sidharth756"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between p-2.5 rounded bg-[#1A1D23] text-slate-300 hover:text-white border border-[#292E38]"
-                >
-                  <span className="flex items-center gap-2">
-                    <GithubIcon className="w-4 h-4 text-slate-400" />
-                    <span>github.com/sidharth756</span>
-                  </span>
-                  <span className="text-slate-500 font-mono">GitHub</span>
-                </a>
-
-                <a
-                  href="https://linkedin.com/in/sidharth56"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between p-2.5 rounded bg-[#1A1D23] text-slate-300 hover:text-white border border-[#292E38]"
-                >
-                  <span className="flex items-center gap-2">
-                    <LinkedinIcon className="w-4 h-4 text-slate-400" />
-                    <span>linkedin.com/in/sidharth56</span>
-                  </span>
-                  <span className="text-slate-500 font-mono">LinkedIn</span>
-                </a>
-
-                <a
-                  href="https://leetcode.com/u/sidharth9944/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between p-2.5 rounded bg-[#1A1D23] text-slate-300 hover:text-white border border-[#292E38]"
-                >
-                  <span className="flex items-center gap-2">
-                    <LeetcodeIcon className="w-4 h-4 text-slate-400" />
-                    <span>leetcode.com/u/sidharth9944/</span>
-                  </span>
-                  <span className="text-slate-500 font-mono">LeetCode</span>
-                </a>
-              </div>
-            </div>
-
-          </div>
-
-          {/* Right Column: Contact Form */}
-          <div className="lg:col-span-7">
-            <div className="pro-card p-6 sm:p-8 space-y-4">
-              <h3 className="text-lg font-bold text-white">Send Message</h3>
-
-              {submitted && (
-                <div className="p-3.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs flex items-center gap-2">
-                  <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>Thank you! Your message has been sent successfully.</span>
-                </div>
-              )}
-
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-mono text-slate-400 uppercase mb-1">Your Name *</label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="e.g. John Doe"
-                      className="w-full px-3.5 py-2.5 rounded bg-[#121418] border border-[#2B303C] text-white text-xs focus:border-sky-400 focus:outline-none"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-mono text-slate-400 uppercase mb-1">Your Email *</label>
-                    <input
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="e.g. john@example.com"
-                      className="w-full px-3.5 py-2.5 rounded bg-[#121418] border border-[#2B303C] text-white text-xs focus:border-sky-400 focus:outline-none"
-                    />
-                  </div>
-                </div>
-
+            <form onSubmit={handleSubmit} style={{ display:'flex', flexDirection:'column', gap:'1rem' }}>
+              {/* Name + Email row */}
+              <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1rem' }}>
                 <div>
-                  <label className="block text-xs font-mono text-slate-400 uppercase mb-1">Subject</label>
+                  <label style={{ display:'block', fontFamily:'Inter,sans-serif', fontSize:'.78rem', fontWeight:600, color:'var(--ink-3)', marginBottom:'.4rem', textTransform:'uppercase', letterSpacing:'.05em' }}>
+                    Name *
+                  </label>
                   <input
-                    type="text"
-                    value={formData.subject}
-                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    placeholder="e.g. Project Inquiry"
-                    className="w-full px-3.5 py-2.5 rounded bg-[#121418] border border-[#2B303C] text-white text-xs focus:border-sky-400 focus:outline-none"
+                    type="text" required className="input"
+                    placeholder="Your name"
+                    value={form.name}
+                    onChange={e => setForm({...form, name:e.target.value})}
                   />
                 </div>
-
                 <div>
-                  <label className="block text-xs font-mono text-slate-400 uppercase mb-1">Message *</label>
-                  <textarea
-                    rows="4"
-                    required
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Write your message..."
-                    className="w-full px-3.5 py-2.5 rounded bg-[#121418] border border-[#2B303C] text-white text-xs focus:border-sky-400 focus:outline-none resize-none"
-                  ></textarea>
+                  <label style={{ display:'block', fontFamily:'Inter,sans-serif', fontSize:'.78rem', fontWeight:600, color:'var(--ink-3)', marginBottom:'.4rem', textTransform:'uppercase', letterSpacing:'.05em' }}>
+                    Email *
+                  </label>
+                  <input
+                    type="email" required className="input"
+                    placeholder="your@email.com"
+                    value={form.email}
+                    onChange={e => setForm({...form, email:e.target.value})}
+                  />
                 </div>
+              </div>
 
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded font-semibold text-xs bg-sky-500 text-slate-950 hover:bg-sky-400 transition-colors disabled:opacity-50"
-                >
-                  {loading ? (
-                    <span>Sending...</span>
-                  ) : (
-                    <>
-                      <Send className="w-3.5 h-3.5" />
-                      <span>Send Message</span>
-                    </>
-                  )}
-                </button>
-              </form>
+              {/* Subject */}
+              <div>
+                <label style={{ display:'block', fontFamily:'Inter,sans-serif', fontSize:'.78rem', fontWeight:600, color:'var(--ink-3)', marginBottom:'.4rem', textTransform:'uppercase', letterSpacing:'.05em' }}>
+                  Subject
+                </label>
+                <input
+                  type="text" className="input"
+                  placeholder="Internship opportunity / Collaboration / Other"
+                  value={form.subject}
+                  onChange={e => setForm({...form, subject:e.target.value})}
+                />
+              </div>
 
-            </div>
+              {/* Message */}
+              <div>
+                <label style={{ display:'block', fontFamily:'Inter,sans-serif', fontSize:'.78rem', fontWeight:600, color:'var(--ink-3)', marginBottom:'.4rem', textTransform:'uppercase', letterSpacing:'.05em' }}>
+                  Message *
+                </label>
+                <textarea
+                  required className="input"
+                  placeholder="Tell me about the opportunity or what you'd like to discuss..."
+                  value={form.message}
+                  onChange={e => setForm({...form, message:e.target.value})}
+                />
+              </div>
+
+              {/* Submit */}
+              <button
+                type="submit" className="btn btn-primary"
+                disabled={status === 'sending'}
+                style={{ justifyContent:'center', padding:'.75rem', fontSize:'.9375rem', marginTop:'.25rem' }}
+              >
+                {status === 'sending' ? (
+                  'Sending...'
+                ) : (
+                  <><Send size={15}/> Send Message</>
+                )}
+              </button>
+            </form>
           </div>
 
+          {/* ── RIGHT: Contact info ── */}
+          <div style={{ display:'flex', flexDirection:'column', gap:'1rem' }}>
+            {/* Email */}
+            <div className="card" style={{ padding:'1.25rem 1.375rem' }}>
+              <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', gap:'1rem' }}>
+                <div style={{ display:'flex', alignItems:'center', gap:'.875rem' }}>
+                  <div style={{ width:38, height:38, borderRadius:9, background:'var(--blue-light)', border:'1px solid #BFDBFE', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0 }}>
+                    <Mail size={16} color="var(--blue)"/>
+                  </div>
+                  <div>
+                    <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:'.67rem', color:'var(--ink-4)', textTransform:'uppercase', letterSpacing:'.08em', marginBottom:'.15rem' }}>Email</div>
+                    <a href="mailto:sidharthrk756@gmail.com" style={{ fontFamily:'Inter,sans-serif', fontWeight:600, fontSize:'.9rem', color:'var(--ink)' }}>
+                      sidharthrk756@gmail.com
+                    </a>
+                  </div>
+                </div>
+                <CopyBtn text="sidharthrk756@gmail.com"/>
+              </div>
+            </div>
+
+            {/* Phone */}
+            <div className="card" style={{ padding:'1.25rem 1.375rem' }}>
+              <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', gap:'1rem' }}>
+                <div style={{ display:'flex', alignItems:'center', gap:'.875rem' }}>
+                  <div style={{ width:38, height:38, borderRadius:9, background:'#ECFDF5', border:'1px solid #A7F3D0', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0 }}>
+                    <Phone size={16} color="#059669"/>
+                  </div>
+                  <div>
+                    <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:'.67rem', color:'var(--ink-4)', textTransform:'uppercase', letterSpacing:'.08em', marginBottom:'.15rem' }}>Phone / WhatsApp</div>
+                    <a href="tel:+919342755756" style={{ fontFamily:'Inter,sans-serif', fontWeight:600, fontSize:'.9rem', color:'var(--ink)' }}>
+                      +91 9342 755 756
+                    </a>
+                  </div>
+                </div>
+                <CopyBtn text="+919342755756"/>
+              </div>
+            </div>
+
+            {/* Location */}
+            <div className="card" style={{ padding:'1.25rem 1.375rem' }}>
+              <div style={{ display:'flex', alignItems:'center', gap:'.875rem' }}>
+                <div style={{ width:38, height:38, borderRadius:9, background:'#FFF7ED', border:'1px solid #FED7AA', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0 }}>
+                  <MapPin size={16} color="#C2410C"/>
+                </div>
+                <div>
+                  <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:'.67rem', color:'var(--ink-4)', textTransform:'uppercase', letterSpacing:'.08em', marginBottom:'.15rem' }}>Location</div>
+                  <div style={{ fontFamily:'Inter,sans-serif', fontWeight:600, fontSize:'.9rem', color:'var(--ink)' }}>
+                    Sathyamangalam / Coimbatore, TN
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Social links */}
+            <div style={{ paddingTop:'.25rem' }}>
+              <p style={{ fontFamily:'JetBrains Mono,monospace', fontSize:'.67rem', color:'var(--ink-4)', textTransform:'uppercase', letterSpacing:'.1em', marginBottom:'.75rem' }}>
+                Find me online
+              </p>
+              <div style={{ display:'flex', flexDirection:'column', gap:'.5rem' }}>
+                {SOCIALS.map(({ Icon, label, handle, url, color }) => (
+                  <a key={label} href={url} target="_blank" rel="noopener noreferrer"
+                    className="card"
+                    style={{ padding:'.875rem 1.125rem', display:'flex', alignItems:'center', justifyContent:'space-between', gap:'.75rem', transition:'box-shadow .2s, transform .2s, border-color .2s' }}
+                    onMouseEnter={e => { e.currentTarget.style.borderColor = color; e.currentTarget.style.transform = 'translateX(3px)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.transform = 'translateX(0)'; }}
+                  >
+                    <div style={{ display:'flex', alignItems:'center', gap:'.75rem' }}>
+                      <Icon style={{ width:19, height:19, color, flexShrink:0 }}/>
+                      <div>
+                        <div style={{ fontFamily:'Manrope,sans-serif', fontWeight:700, fontSize:'.875rem', color:'var(--ink)' }}>{label}</div>
+                        <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:'.72rem', color:'var(--ink-4)' }}>/{handle}</div>
+                      </div>
+                    </div>
+                    <ExternalLink size={13} color="var(--ink-4)"/>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>
+
+      {/* Responsive: stack on mobile */}
+      <style>{`
+        @media (max-width: 860px) {
+          #contact .wrap > div:last-of-type {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

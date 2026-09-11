@@ -1,69 +1,69 @@
-import React from 'react';
-import { X, Download, ExternalLink, FileText, CheckCircle } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { X, Download, ExternalLink, FileText } from 'lucide-react';
 
-export default function ResumeModal({ isOpen, onClose }) {
-  if (!isOpen) return null;
-
+export default function ResumeModal({ onClose }) {
   const resumeUrl = '/Resume-06.pdf';
 
+  useEffect(() => {
+    const h = e => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', h);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', h);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="glass-card max-w-4xl w-full h-[90vh] rounded-3xl border border-slate-700/80 overflow-hidden shadow-2xl flex flex-col">
-        
-        {/* Modal Header Bar */}
-        <div className="bg-slate-900/90 px-6 py-4 border-b border-slate-800 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center">
-              <FileText className="w-4 h-4" />
+    <div
+      className="modal-overlay"
+      onClick={e => { if (e.target === e.currentTarget) onClose(); }}
+    >
+      <div
+        className="modal-box"
+        style={{ maxWidth:960, height:'92vh', display:'flex', flexDirection:'column' }}
+      >
+        {/* Header */}
+        <div style={{
+          display:'flex', alignItems:'center', justifyContent:'space-between',
+          padding:'1rem 1.5rem', borderBottom:'1px solid var(--border)',
+          background:'var(--bg-muted)', flexShrink:0,
+          borderRadius:'var(--r-xl) var(--r-xl) 0 0',
+        }}>
+          <div style={{ display:'flex', alignItems:'center', gap:'.75rem' }}>
+            <div style={{ width:36, height:36, borderRadius:8, background:'var(--blue-light)', border:'1px solid #BFDBFE', display:'flex', alignItems:'center', justifyContent:'center' }}>
+              <FileText size={16} color="var(--blue)"/>
             </div>
             <div>
-              <h3 className="text-base font-bold text-white leading-none">
+              <div style={{ fontFamily:'Manrope,sans-serif', fontWeight:700, fontSize:'.9375rem', color:'var(--ink)' }}>
                 Sidharth_RK_Resume.pdf
-              </h3>
-              <p className="text-xs text-slate-400 font-mono mt-0.5">
-                Official Curriculum Vitae
-              </p>
+              </div>
+              <div style={{ fontFamily:'JetBrains Mono,monospace', fontSize:'.68rem', color:'var(--ink-4)' }}>
+                Software Engineer · Full-Stack Developer
+              </div>
             </div>
           </div>
-
-          <div className="flex items-center gap-2">
-            <a
-              href={resumeUrl}
-              download="Sidharth_RK_Resume.pdf"
-              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-cyan-500 text-slate-950 hover:bg-cyan-400 transition-colors shadow-md"
-            >
-              <Download className="w-4 h-4" />
-              <span className="hidden sm:inline">Download PDF</span>
+          <div style={{ display:'flex', alignItems:'center', gap:'.5rem' }}>
+            <a href={resumeUrl} download="Sidharth_RK_Resume.pdf" className="btn btn-primary" style={{ fontSize:'.8125rem', padding:'.45rem .9rem' }}>
+              <Download size={14}/> Download
             </a>
-
-            <a
-              href={resumeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-xl glass-card text-slate-300 hover:text-white hover:border-slate-700 transition-colors"
-              title="Open in new tab"
-            >
-              <ExternalLink className="w-4 h-4" />
+            <a href={resumeUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ padding:'.45rem .65rem' }} title="Open in new tab">
+              <ExternalLink size={14}/>
             </a>
-
-            <button
-              onClick={onClose}
-              className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
-            >
-              <X className="w-5 h-5" />
+            <button onClick={onClose} className="btn btn-ghost" style={{ padding:'.45rem .65rem', border:'1px solid var(--border)' }} title="Close">
+              <X size={16}/>
             </button>
           </div>
         </div>
 
-        {/* PDF Embed / Preview Container */}
-        <div className="flex-1 bg-slate-950 p-2 sm:p-4 relative overflow-hidden">
+        {/* PDF iframe */}
+        <div style={{ flex:1, padding:'.875rem', background:'var(--bg)', overflow:'hidden' }}>
           <iframe
             src={resumeUrl}
-            title="Sidharth R K Resume Preview"
-            className="w-full h-full rounded-2xl border border-slate-800 bg-white"
+            title="Sidharth R K Resume"
+            style={{ width:'100%', height:'100%', border:'1px solid var(--border)', borderRadius:'var(--r)', background:'#fff' }}
           />
         </div>
-
       </div>
     </div>
   );
