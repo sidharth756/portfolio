@@ -1,32 +1,33 @@
-import React, { useState } from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Skills from './components/Skills';
-import Projects from './components/Projects';
-import Leadership from './components/Leadership';
-import Certifications from './components/Certifications';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
-import ResumeModal from './components/ResumeModal';
+import Navbar from './components/Navbar/Navbar';
+import Hero from './components/Hero/Hero';
+import About from './components/About/About';
+import Skills from './components/Skills/Skills';
+import Projects from './components/Projects/Projects';
+import Experience from './components/Experience/Experience';
+import Education from './components/Education/Education';
+import Achievements from './components/Achievements/Achievements';
+import Contact from './components/Contact/Contact';
+import Footer from './components/Footer/Footer';
+import ParticlesBackground from './components/ParticlesBackground/ParticlesBackground';
+import LoadingScreen from './components/ReactBits/LoadingScreen';
 
 export default function App() {
-  const [resumeOpen, setResumeOpen] = useState(false);
-
   return (
     <>
-      <Navbar onOpenResume={() => setResumeOpen(true)} />
-      <main>
-        <Hero      onOpenResume={() => setResumeOpen(true)} />
-        <About     />
-        <Skills    />
-        <Projects  />
-        <Leadership/>
-        <Certifications/>
-        <Contact   />
+      <LoadingScreen />
+      <ParticlesBackground />
+      <Navbar />
+      <main id="main-content">
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Experience />
+        <Education />
+        <Achievements />
+        <Contact />
       </main>
       <Footer />
-      {resumeOpen && <ResumeModal onClose={() => setResumeOpen(false)} />}
     </>
   );
 }

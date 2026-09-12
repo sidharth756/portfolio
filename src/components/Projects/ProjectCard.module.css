@@ -1,0 +1,237 @@
+.card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color var(--transition), transform var(--transition);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+
+.card.featured {
+  border-color: var(--accent-border);
+  background: linear-gradient(
+    135deg,
+    var(--bg-surface) 0%,
+    rgba(232, 168, 56, 0.04) 100%
+  );
+}
+
+.card.featured:hover {
+  border-color: rgba(232, 168, 56, 0.4);
+}
+
+.card.compact .cardInner {
+  padding: 1.25rem 1.5rem;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.card.compact .content {
+  flex: 1;
+}
+
+.card.compact .tech {
+  margin-top: 0;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.cardInner {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.category {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.links {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.linkBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  transition: color var(--transition), background-color var(--transition);
+}
+
+.linkBtn:hover {
+  color: var(--text-primary);
+  background-color: rgba(255,255,255,0.06);
+}
+
+.linkBtn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.tagline {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--accent);
+  line-height: 1.4;
+}
+
+.description {
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.highlights {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.highlight {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.highlightIcon {
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+.techTag {
+  padding: 0.2rem 0.5rem;
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--text-muted);
+  background-color: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+}
+
+/* Thumbnail Showcase Area */
+.thumbnailContainer {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  background-color: #0b1120;
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.thumbnailImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.4s ease;
+}
+
+.card:hover .thumbnailImg {
+  transform: scale(1.04);
+}
+
+.thumbnailPlaceholder {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%);
+  overflow: hidden;
+}
+
+.placeholderGlow {
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.placeholderHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.placeholderCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: auto;
+}
+
+.placeholderTitle {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+}
+

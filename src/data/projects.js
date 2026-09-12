@@ -1,0 +1,95 @@
+export const projects = [
+  {
+    id: 'credencify',
+    title: 'Credencify',
+    tagline: 'Blockchain-backed digital credential verification platform.',
+    description:
+      'Designed to make academic credentials tamper-proof and instantly verifiable by institutions and employers. Built on the Ethereum Sepolia testnet using Solidity smart contracts, with a Spring Boot backend and a React frontend.',
+    technologies: ['React', 'Spring Boot', 'Web3j', 'Solidity', 'Sepolia', 'MySQL', 'JWT'],
+    highlights: [
+      'Designed and deployed Solidity smart contracts on Sepolia testnet via Web3j',
+      'Built REST APIs for credential issuance, verification, and user management',
+      'Implemented JWT-based authentication with role-based access control',
+      'Integrated IPFS-based metadata storage for credential documents',
+    ],
+    github: 'https://github.com/sidharth756',
+    demo: null,
+    featured: true,
+    category: 'Blockchain / Full-Stack',
+    image: null, // User can pass image path e.g. '/projects/credencify.jpg'
+  },
+  {
+    id: 'microservices-ecommerce',
+    title: 'Microservices Platform',
+    tagline: 'Distributed e-commerce backend built with Spring Cloud.',
+    description:
+      'A production-style microservices architecture featuring service discovery, inter-service communication, and centralized configuration — designed to demonstrate real distributed systems concepts.',
+    technologies: ['Spring Boot', 'Spring Cloud', 'Eureka', 'OpenFeign', 'API Gateway', 'MySQL', 'Docker'],
+    highlights: [
+      'Built multiple independent services: Order, Product, Inventory, Notification',
+      'Configured Eureka service registry for dynamic service discovery',
+      'Used OpenFeign for declarative REST client communication between services',
+      'Implemented Spring Cloud Gateway for routing and load balancing',
+    ],
+    github: 'https://github.com/sidharth756',
+    demo: null,
+    featured: false,
+    category: 'Backend / Distributed Systems',
+    image: null,
+  },
+  {
+    id: 'taskflow',
+    title: 'TaskFlow API',
+    tagline: 'Clean RESTful task management API with Spring Boot.',
+    description:
+      'A well-structured task management backend with user authentication, task CRUD, prioritization, and deadline tracking. Focused on clean architecture and API design.',
+    technologies: ['Spring Boot', 'JPA / Hibernate', 'MySQL', 'JWT', 'REST APIs'],
+    highlights: [
+      'Designed layered architecture: Controller → Service → Repository',
+      'Implemented Spring Security with JWT token validation',
+      'Used JPA Criteria API for dynamic filtered task queries',
+      'Wrote comprehensive API documentation',
+    ],
+    github: 'https://github.com/sidharth756',
+    demo: null,
+    featured: false,
+    category: 'Backend',
+    image: null,
+  },
+  {
+    id: 'smart-campus',
+    title: 'Smart Campus Portal',
+    tagline: 'Full-stack academic event & resource management platform.',
+    description:
+      'Unified portal for student clubs, event registrations, and campus announcements with real-time notifications and role-based access for club heads and faculty.',
+    technologies: ['React', 'Spring Boot', 'MySQL', 'Tailwind CSS', 'REST'],
+    highlights: [
+      'Built interactive dashboard for SDC club management and event registration',
+      'Implemented role-based authorization for students, admins, and faculty',
+      'Optimized database queries with indexed search for event schedules',
+    ],
+    github: 'https://github.com/sidharth756',
+    demo: null,
+    featured: false,
+    category: 'Full-Stack',
+    image: null,
+  },
+  {
+    id: 'kv-cache-store',
+    title: 'Distributed KV Store',
+    tagline: 'In-memory key-value caching server built with Java TCP.',
+    description:
+      'Custom Redis-inspired key-value storage engine in Java featuring thread-safe concurrent HashMaps, LRU eviction policy, and TCP socket client-server protocol.',
+    technologies: ['Java', 'Concurrency', 'TCP Sockets', 'LRU Cache', 'DS & Algo'],
+    highlights: [
+      'Implemented custom LRU cache data structure with O(1) read/write operations',
+      'Built multi-threaded TCP server handling concurrent client requests',
+      'Implemented TTL expiry and automated background cleanup workers',
+    ],
+    github: 'https://github.com/sidharth756',
+    demo: null,
+    featured: false,
+    category: 'Systems / Java',
+    image: null,
+  },
+];

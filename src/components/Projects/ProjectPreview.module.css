@@ -1,0 +1,131 @@
+.previewContainer {
+  width: 100%;
+  background-color: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(51, 65, 85, 0.6);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  margin: 0.85rem 0 1rem 0;
+  backdrop-filter: blur(12px);
+}
+
+.previewHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.75rem;
+  background: rgba(30, 41, 59, 0.4);
+  border-bottom: 1px solid rgba(51, 65, 85, 0.4);
+}
+
+.dots {
+  display: flex;
+  gap: 4px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.dot[data-color="red"]    { background-color: #ff5f57; }
+.dot[data-color="yellow"] { background-color: #febc2e; }
+.dot[data-color="green"]  { background-color: #28c840; }
+
+.previewTitle {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: #94a3b8;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.previewBody {
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #f8fafc;
+}
+
+.statsRow, .meshRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 500;
+}
+
+.statBox {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(30, 41, 59, 0.6);
+  padding: 0.25rem 0.6rem;
+  border-radius: 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mockGraph {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 45px;
+  padding-top: 6px;
+}
+
+.bar {
+  flex: 1;
+  background: linear-gradient(180deg, #f97316 0%, rgba(249, 115, 22, 0.2) 100%);
+  border-radius: 3px 3px 0 0;
+}
+
+.nodesGrid {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.nodePill {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 0.35rem;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: #38bdf8;
+}
+
+.chartLine {
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #60a5fa 0%, #a855f7 100%);
+  width: 100%;
+}
+
+.docLines {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.docLine {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(234, 179, 8, 0.3);
+}
+
+.hashBox {
+  font-size: 0.7rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.4rem;
+  background: rgba(168, 85, 247, 0.12);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  color: #d8b4fe;
+}
+
+.iconOrange { color: #f97316; }
+.iconGold   { color: #f59e0b; }
+.iconCyan   { color: #38bdf8; }
+.iconBlue   { color: #60a5fa; }
+.iconViolet { color: #a855f7; }
