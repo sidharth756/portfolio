@@ -33,7 +33,7 @@
     "wrangler": "^4.130.0"
   },
   "overrides": {
-    "lightningcss": "1.33.0"
+    "lightningcss": "1.21.0"
   },
   "optionalDependencies": {
     "lightningcss-linux-x64-gnu": "^1.33.0",
