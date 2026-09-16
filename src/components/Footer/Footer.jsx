@@ -14,6 +14,7 @@ export default function Footer() {
         <p className={styles.built}>
           Built with React · Deployed on Cloudflare Pages
         </p>
+        
 
         <nav className={styles.links} aria-label="Footer social links">
           <a
