@@ -76,8 +76,6 @@ export default function ParticlesBackground() {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = `${p.colorPrefix}${p.alpha})`;
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = `${p.colorPrefix}0.8)`;
         ctx.fill();
 
         // Connect nearby particles with glowing lines

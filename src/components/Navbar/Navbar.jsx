@@ -28,21 +28,25 @@ export default function Navbar() {
   };
 
   useEffect(() => {
-    const handleScroll = () => {
+    let ticking = false;
+
+    const updateScrollState = () => {
       setScrolled(window.scrollY > 40);
 
-      if (isClickScrollRef.current) return;
+      if (isClickScrollRef.current) {
+        ticking = false;
+        return;
+      }
 
-      // Check if user scrolled near bottom of page -> activate #contact
       const isAtBottom =
         window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 180;
 
       if (isAtBottom) {
-        setActiveSection('#contact');
+        setActiveSection((prev) => (prev !== '#contact' ? '#contact' : prev));
+        ticking = false;
         return;
       }
 
-      // Viewport-relative check from LAST to FIRST section
       const sections = ['#contact', '#experience', '#projects', '#skills', '#about'];
       const triggerPoint = window.innerHeight * 0.55;
 
@@ -51,10 +55,18 @@ export default function Navbar() {
         if (el) {
           const rect = el.getBoundingClientRect();
           if (rect.top <= triggerPoint) {
-            setActiveSection(section);
+            setActiveSection((prev) => (prev !== section ? section : prev));
             break;
           }
         }
+      }
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(updateScrollState);
+        ticking = true;
       }
     };
 
