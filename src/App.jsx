@@ -9,11 +9,11 @@ import Achievements from './components/Achievements/Achievements';
 import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
 import ParticlesBackground from './components/ParticlesBackground/ParticlesBackground';
-import SmoothScroll from './components/SmoothScroll/SmoothScroll';
+import LoadingScreen from './components/ReactBits/LoadingScreen';
 
 export default function App() {
   return (
-    <SmoothScroll>
+    <>
       <LoadingScreen />
       <ParticlesBackground />
       <Navbar />
@@ -28,6 +28,6 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
-    </SmoothScroll>
+    </>
   );
 }

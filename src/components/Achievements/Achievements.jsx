@@ -1,11 +1,24 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Trophy, Award, Sparkles, ExternalLink, GitPullRequest } from 'lucide-react';
+import { Trophy, Award, ExternalLink, GitPullRequest, ShieldCheck, Tag } from 'lucide-react';
 import SectionHeading from '../SectionHeading/SectionHeading';
 import { achievements } from '../../data/achievements';
 import styles from './Achievements.module.css';
 
 export default function Achievements() {
+  const getBadgeIcon = (id) => {
+    switch (id) {
+      case 'corsair-open-source':
+        return <GitPullRequest size={15} aria-hidden="true" />;
+      case 'agentverse-2k26':
+        return <Trophy size={15} aria-hidden="true" />;
+      case 'hackblox-2026':
+        return <Award size={15} aria-hidden="true" />;
+      default:
+        return <Award size={15} aria-hidden="true" />;
+    }
+  };
+
   return (
     <section id="achievements" className={`section ${styles.section}`} aria-labelledby="achievements-heading">
       <div className="container">
@@ -36,11 +49,7 @@ export default function Achievements() {
                     borderColor: `${item.color}40`,
                   }}
                 >
-                  {item.id === 'corsair-open-source' ? (
-                    <GitPullRequest size={16} aria-hidden="true" />
-                  ) : (
-                    <Trophy size={16} aria-hidden="true" />
-                  )}
+                  {getBadgeIcon(item.id)}
                   <span>{item.place}</span>
                 </div>
                 <span className={styles.yearBadge}>{item.year}</span>
@@ -50,7 +59,7 @@ export default function Achievements() {
               <div className={styles.cardBody}>
                 <h3 className={styles.title}>{item.title}</h3>
                 <div className={styles.venueRow}>
-                  <Sparkles size={14} className={styles.venueIcon} style={{ color: item.color }} />
+                  <ShieldCheck size={14} className={styles.venueIcon} style={{ color: item.color }} />
                   <span className={styles.venueText}>{item.venue}</span>
                 </div>
                 <p className={styles.detailText}>{item.detail}</p>
@@ -69,6 +78,7 @@ export default function Achievements() {
                         borderColor: `${item.color}30`,
                       }}
                     >
+                      <Tag size={11} className="mr-1 inline opacity-80" />
                       {tag}
                     </span>
                   ))}

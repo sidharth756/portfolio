@@ -74,7 +74,6 @@ export default function LoadingScreen({ onComplete }) {
               <span className="font-mono text-2xl font-black bg-gradient-to-r from-amber-400 via-purple-300 to-amber-300 bg-clip-text text-transparent">
                 S
               </span>
-              <Sparkles size={11} className="absolute top-2 right-2 text-amber-400 animate-pulse" />
             </div>
           </motion.div>
 
@@ -86,7 +85,7 @@ export default function LoadingScreen({ onComplete }) {
             className="text-center mb-7"
           >
             <h1 className="text-2xl font-bold tracking-tight text-slate-100 flex items-center justify-center gap-1">
-              Sidharth<span className="text-purple-400 font-mono font-bold">.dev</span>
+              sidharthdev<span className="text-purple-400 font-mono font-bold">.xyz</span>
             </h1>
             <p className="text-xs font-mono text-slate-400 mt-1.5 flex items-center justify-center gap-2">
               <ShinyText text={statuses[statusIndex]} speed={2.5} />

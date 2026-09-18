@@ -87,13 +87,10 @@ export default function Navbar() {
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`} role="banner">
       <nav className={`${styles.nav} container`} aria-label="Main navigation">
         {/* Logo / Brand Monogram */}
-        <a href="#hero" className={styles.logo} aria-label="Sidharth RK — Home">
-          <div className={styles.logoIcon}>
-            <Sparkles size={14} className={styles.sparkleIcon} />
-          </div>
-          <div className="flex items-baseline gap-1">
-            <span className={styles.logoName}>Sidharth</span>
-            <span className={styles.logoSuffix}>.dev</span>
+        <a href="#hero" className={styles.logo} aria-label="sidharthdev.xyz — Home">
+          <div className="flex items-baseline gap-0.5">
+            <span className={styles.logoName}>sidharthdev</span>
+            <span className={styles.logoSuffix}>.xyz</span>
           </div>
         </a>
 
